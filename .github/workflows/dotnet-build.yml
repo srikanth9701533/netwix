@@ -17,18 +17,34 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
+    # 1️⃣ Restore dependencies
+    - name: Restore dependencies
+      run: dotnet restore
+
+    # 2️⃣ Build solution
+    - name: Build solution
+      run: dotnet build --configuration Release --no-restore
+
+    # 3️⃣ Run unit tests ✅
+    - name: Run unit tests
+      run: dotnet test --configuration Release --no-build
+
+    # 4️⃣ Publish EXE (only if tests pass)
     - name: Publish EXE (self-contained)
       run: dotnet publish -c Release -r win-x64 --self-contained true -o publish
 
+    # 5️⃣ Install WiX Toolset
     - name: Install WiX
       run: choco install wixtoolset -y
 
+    # 6️⃣ Build MSI
     - name: Build MSI
       run: |
         cd installer
         candle Product.wxs
         light Product.wixobj -o HelloDotNet-Setup.msi
 
+    # 7️⃣ Upload MSI artifact
     - name: Upload MSI artifact
       uses: actions/upload-artifact@v4
       with:

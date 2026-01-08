@@ -13,7 +13,7 @@
              Compressed="yes"
              InstallScope="perMachine" />
 
-    <!-- 🔥 THIS IS THE FIX -->
+
     <MediaTemplate EmbedCab="yes" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
