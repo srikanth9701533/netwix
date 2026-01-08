@@ -7,21 +7,21 @@
     Language="1033"
     Version="1.0.0"
     Manufacturer="MyCompany"
-    UpgradeCode="0dbe8e8b-1d49-4961-baaa-3870b843410d">
+    UpgradeCode="efefb412-1b5d-4d2c-82ba-d40bb993058f">
 
     <Package InstallerVersion="500"
              Compressed="yes"
              InstallScope="perMachine" />
 
-    <MediaTemplate />
+    <!-- 🔥 THIS IS THE FIX -->
+    <MediaTemplate EmbedCab="yes" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLFOLDER" Name="HelloDotNet">
           <Component Id="MainExe" Guid="*">
-            <File
-              Source="..\publish\HelloDotNet.exe"
-              KeyPath="yes" />
+            <File Source="..\publish\HelloDotNet.exe"
+                  KeyPath="yes" />
           </Component>
         </Directory>
       </Directory>
