@@ -1,33 +1,36 @@
-name: Build .NET Application
+name: Build MSI Installer
 
 on:
   push:
     branches: [ "wixsetup" ]
 
 jobs:
-  build:
+  build-msi:
     runs-on: windows-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup .NET SDK
+    - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Publish EXE (self-contained)
+      run: dotnet publish -c Release -r win-x64 --self-contained true -o publish
 
-    - name: Build application
-      run: dotnet build --configuration Release --no-restore
+    - name: Install WiX
+      run: choco install wixtoolset -y
 
-    - name: Publish application
-      run: dotnet publish -c Release -o publish
+    - name: Build MSI
+      run: |
+        cd installer
+        candle Product.wxs
+        light Product.wixobj -o HelloDotNet-Setup.msi
 
-    - name: Upload build artifact
+    - name: Upload MSI artifact
       uses: actions/upload-artifact@v4
       with:
-        name: dotnet-output
-        path: publish/
+        name: HelloDotNet-MSI
+        path: installer/HelloDotNet-Setup.msi
