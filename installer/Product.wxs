@@ -7,7 +7,7 @@
     Language="1033"
     Version="1.0.0"
     Manufacturer="MyCompany"
-    UpgradeCode="PUT-GUID-HERE">
+    UpgradeCode="0dbe8e8b-1d49-4961-baaa-3870b843410d">
 
     <Package InstallerVersion="500"
              Compressed="yes"
@@ -18,7 +18,7 @@
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLFOLDER" Name="HelloDotNet">
-          <Component Id="MainExe" Guid="d8f0ebb0-3cb4-4fa0-b910-fb2c0b0722a9">
+          <Component Id="MainExe" Guid="*">
             <File
               Source="..\publish\HelloDotNet.exe"
               KeyPath="yes" />
